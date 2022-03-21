@@ -14,21 +14,10 @@
  * limitations under the License.
  */
 
-locals {
-  iam_to_primitive = {
-    "roles/bigquery.dataOwner" : "OWNER"
-    "roles/bigquery.dataEditor" : "WRITER"
-    "roles/bigquery.dataViewer" : "READER"
-  }
-}
-
 resource "google_bigquery_table_iam_member" "iam_member" {
   dataset_id = var.dataset_id
   table_id   = var.table_id
   project    = var.project_id
-  # BigQuery API converts IAM to primitive roles in its backend.
-  # This causes Terraform to show a diff on every plan that uses IAM equivalent roles.
-  # Thus, do the conversion between IAM to primitive role here to prevent the diff.
   role   = var.role
   member = var.member
 }
