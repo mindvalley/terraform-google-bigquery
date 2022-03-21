@@ -21,3 +21,9 @@ resource "google_bigquery_table_iam_member" "iam_member" {
   role   = var.role
   member = var.member
 }
+
+resource "google_project_iam_member" "iam_member" {
+  project = var.project_id
+  role    = "roles/bigquery.jobUser"
+  member  = var.member
+}
